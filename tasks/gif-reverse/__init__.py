@@ -1,13 +1,11 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_path: str
-
 class Outputs(typing.TypedDict):
-    reversed_gif_path: str
-    frame_count: int
+    reversed_gif_path: typing.NotRequired[str]
+    frame_count: typing.NotRequired[int]
 #endregion
 
 from oocana import Context

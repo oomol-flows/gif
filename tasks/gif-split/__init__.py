@@ -1,15 +1,13 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_dir: str
-    format: str
-
+    format: typing.Literal["png", "jpg", "bmp"]
 class Outputs(typing.TypedDict):
-    frame_paths: list[str]
-    frame_count: int
-    duration: float
+    frame_paths: typing.NotRequired[list[str]]
+    frame_count: typing.NotRequired[int]
+    duration: typing.NotRequired[float]
 #endregion
 
 from oocana import Context

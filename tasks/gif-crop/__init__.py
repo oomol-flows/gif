@@ -1,6 +1,5 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_path: str
@@ -8,11 +7,10 @@ class Inputs(typing.TypedDict):
     y: int
     width: int
     height: int
-
 class Outputs(typing.TypedDict):
-    cropped_gif_path: str
-    original_size: list[int]
-    crop_area: list[int]
+    cropped_gif_path: typing.NotRequired[str]
+    original_size: typing.NotRequired[list[int]]
+    crop_area: typing.NotRequired[list[int]]
 #endregion
 
 from oocana import Context

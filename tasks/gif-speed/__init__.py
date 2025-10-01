@@ -1,16 +1,14 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_path: str
     speed_multiplier: float
     fps: float
-
 class Outputs(typing.TypedDict):
-    adjusted_gif_path: str
-    original_duration: float
-    new_duration: float
+    adjusted_gif_path: typing.NotRequired[str]
+    original_duration: typing.NotRequired[float]
+    new_duration: typing.NotRequired[float]
 #endregion
 
 from oocana import Context

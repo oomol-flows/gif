@@ -1,18 +1,16 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_path: str
-    optimize_level: int
+    optimize_level: typing.Literal[1, 2, 3]
     max_colors: int
     reduce_fps: int
-
 class Outputs(typing.TypedDict):
-    optimized_gif_path: str
-    original_size: int
-    optimized_size: int
-    compression_ratio: float
+    optimized_gif_path: typing.NotRequired[str]
+    original_size: typing.NotRequired[int]
+    optimized_size: typing.NotRequired[int]
+    compression_ratio: typing.NotRequired[float]
 #endregion
 
 from oocana import Context

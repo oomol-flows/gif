@@ -1,0 +1,112 @@
+title: Test GIF Operations
+
+nodes:
+  # Create a simple test GIF by composing images
+  - node_id: compose#1
+    task: self::gif-compose
+    inputs_from:
+      - handle: image_paths
+        value:
+          - "/oomol-driver/oomol-storage/test_frame1.png"
+          - "/oomol-driver/oomol-storage/test_frame2.png"
+          - "/oomol-driver/oomol-storage/test_frame3.png"
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_original.gif"
+      - handle: duration
+        value: 200
+      - handle: loop
+        value: 0
+
+  # Test gif-split: Extract frames from the composed GIF
+  - node_id: split#1
+    task: self::gif-split
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: compose#1
+            output_handle: gif_path
+      - handle: output_dir
+        value: "/oomol-driver/oomol-storage/book"
+      - handle: format
+        value: "png"
+
+  # Test gif-resize: Resize to 50%
+  - node_id: resize#1
+    task: self::gif-resize
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: compose#1
+            output_handle: gif_path
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_resized.gif"
+      - handle: width
+        value: 0
+      - handle: height
+        value: 0
+      - handle: scale_percent
+        value: 50
+      - handle: resample_method
+        value: "LANCZOS"
+
+  # Test gif-reverse: Reverse the GIF
+  - node_id: reverse#1
+    task: self::gif-reverse
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: compose#1
+            output_handle: gif_path
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_reversed.gif"
+
+  # Test gif-speed: Make it 2x faster
+  - node_id: speed#1
+    task: self::gif-speed
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: compose#1
+            output_handle: gif_path
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_fast.gif"
+      - handle: speed_multiplier
+        value: 2.0
+      - handle: fps
+        value: 0
+
+  # Test gif-crop: Crop to center area
+  - node_id: crop#1
+    task: self::gif-crop
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: resize#1
+            output_handle: resized_gif_path
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_cropped.gif"
+      - handle: x
+        value: 10
+      - handle: y
+        value: 10
+      - handle: width
+        value: 50
+      - handle: height
+        value: 50
+
+  # Test gif-optimize: Optimize the GIF
+  - node_id: optimize#1
+    task: self::gif-optimize
+    inputs_from:
+      - handle: gif_path
+        from_node:
+          - node_id: compose#1
+            output_handle: gif_path
+      - handle: output_path
+        value: "/oomol-driver/oomol-storage/test_optimized.gif"
+      - handle: optimize_level
+        value: 2
+      - handle: max_colors
+        value: 128
+      - handle: reduce_fps
+        value: 1

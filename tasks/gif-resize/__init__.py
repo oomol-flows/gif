@@ -1,18 +1,16 @@
 #region generated meta
 import typing
-
 class Inputs(typing.TypedDict):
     gif_path: str
     output_path: str
     width: int
     height: int
     scale_percent: float
-    resample_method: str
-
+    resample_method: typing.Literal["LANCZOS", "BILINEAR", "BICUBIC", "NEAREST"]
 class Outputs(typing.TypedDict):
-    resized_gif_path: str
-    original_size: list[int]
-    new_size: list[int]
+    resized_gif_path: typing.NotRequired[str]
+    original_size: typing.NotRequired[list[int]]
+    new_size: typing.NotRequired[list[int]]
 #endregion
 
 from oocana import Context
