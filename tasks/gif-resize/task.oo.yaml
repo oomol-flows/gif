@@ -1,0 +1,88 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the resized GIF"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+  - handle: width
+    description: "Target width in pixels (0 to maintain aspect ratio)"
+    json_schema:
+      type: integer
+    value: 0
+    nullable: false
+
+  - handle: height
+    description: "Target height in pixels (0 to maintain aspect ratio)"
+    json_schema:
+      type: integer
+    value: 0
+    nullable: false
+
+  - handle: scale_percent
+    description: "Scale percentage (100 = original, 50 = half size, 200 = double)"
+    json_schema:
+      type: number
+    value: 100
+    nullable: false
+
+  - handle: resample_method
+    description: "Resampling method for quality"
+    json_schema:
+      type: string
+      enum:
+        - LANCZOS
+        - BILINEAR
+        - BICUBIC
+        - NEAREST
+    value: "LANCZOS"
+    nullable: false
+
+outputs_def:
+  - handle: resized_gif_path
+    description: "Path to the resized GIF file"
+    json_schema:
+      type: string
+
+  - handle: original_size
+    description: "Original dimensions [width, height]"
+    json_schema:
+      type: array
+      items:
+        type: integer
+
+  - handle: new_size
+    description: "New dimensions [width, height]"
+    json_schema:
+      type: array
+      items:
+        type: integer
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Resize"
+icon: ":carbon:arrows-horizontal:"
+description: "Resize GIF animation by dimensions or percentage"

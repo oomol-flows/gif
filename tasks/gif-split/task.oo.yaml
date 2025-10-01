@@ -1,0 +1,58 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_dir
+    description: "Directory to save extracted frames"
+    json_schema:
+      type: string
+      ui:widget: dir
+    nullable: false
+
+  - handle: format
+    description: "Output image format"
+    json_schema:
+      type: string
+      enum:
+        - png
+        - jpg
+        - bmp
+    value: "png"
+    nullable: false
+
+outputs_def:
+  - handle: frame_paths
+    description: "List of paths to extracted frame images"
+    json_schema:
+      type: array
+      items:
+        type: string
+
+  - handle: frame_count
+    description: "Total number of frames extracted"
+    json_schema:
+      type: integer
+
+  - handle: duration
+    description: "Original GIF duration per frame (ms)"
+    json_schema:
+      type: number
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Split"
+icon: ":carbon:split:"
+description: "Extract individual frames from a GIF animation"

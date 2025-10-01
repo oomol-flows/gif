@@ -1,0 +1,46 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the reversed GIF"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+outputs_def:
+  - handle: reversed_gif_path
+    description: "Path to the reversed GIF file"
+    json_schema:
+      type: string
+
+  - handle: frame_count
+    description: "Total number of frames"
+    json_schema:
+      type: integer
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Reverse"
+icon: ":carbon:undo:"
+description: "Reverse the playback order of GIF frames"

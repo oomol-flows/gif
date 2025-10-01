@@ -1,0 +1,65 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the adjusted GIF"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+  - handle: speed_multiplier
+    description: "Speed multiplier (2.0 = 2x faster, 0.5 = 2x slower)"
+    json_schema:
+      type: number
+    value: 1.0
+    nullable: false
+
+  - handle: fps
+    description: "Target frames per second (overrides speed_multiplier if > 0)"
+    json_schema:
+      type: number
+    value: 0
+    nullable: false
+
+outputs_def:
+  - handle: adjusted_gif_path
+    description: "Path to the speed-adjusted GIF file"
+    json_schema:
+      type: string
+
+  - handle: original_duration
+    description: "Original frame duration in milliseconds"
+    json_schema:
+      type: number
+
+  - handle: new_duration
+    description: "New frame duration in milliseconds"
+    json_schema:
+      type: number
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Speed"
+icon: ":carbon:time:"
+description: "Adjust GIF playback speed by FPS or multiplier"

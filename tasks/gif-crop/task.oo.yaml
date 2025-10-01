@@ -1,0 +1,81 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the cropped GIF"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+  - handle: x
+    description: "X coordinate of the top-left corner"
+    json_schema:
+      type: integer
+    value: 0
+    nullable: false
+
+  - handle: y
+    description: "Y coordinate of the top-left corner"
+    json_schema:
+      type: integer
+    value: 0
+    nullable: false
+
+  - handle: width
+    description: "Width of the crop area"
+    json_schema:
+      type: integer
+    nullable: false
+
+  - handle: height
+    description: "Height of the crop area"
+    json_schema:
+      type: integer
+    nullable: false
+
+outputs_def:
+  - handle: cropped_gif_path
+    description: "Path to the cropped GIF file"
+    json_schema:
+      type: string
+
+  - handle: original_size
+    description: "Original dimensions [width, height]"
+    json_schema:
+      type: array
+      items:
+        type: integer
+
+  - handle: crop_area
+    description: "Crop coordinates [x, y, width, height]"
+    json_schema:
+      type: array
+      items:
+        type: integer
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Crop"
+icon: ":carbon:crop:"
+description: "Crop GIF animation to a specified rectangular area"

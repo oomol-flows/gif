@@ -1,0 +1,61 @@
+inputs_def:
+  - handle: image_paths
+    description: "List of image file paths to compose into GIF"
+    json_schema:
+      type: array
+      items:
+        type: string
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the output GIF file"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+  - handle: duration
+    description: "Duration per frame in milliseconds"
+    json_schema:
+      type: number
+    value: 100
+    nullable: false
+
+  - handle: loop
+    description: "Number of loops (0 for infinite)"
+    json_schema:
+      type: integer
+    value: 0
+    nullable: false
+
+outputs_def:
+  - handle: gif_path
+    description: "Path to the created GIF file"
+    json_schema:
+      type: string
+
+  - handle: frame_count
+    description: "Total number of frames in the GIF"
+    json_schema:
+      type: integer
+
+  - handle: file_size
+    description: "File size in bytes"
+    json_schema:
+      type: integer
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Compose"
+icon: ":carbon:circuit-composer:"
+description: "Combine multiple images into an animated GIF"

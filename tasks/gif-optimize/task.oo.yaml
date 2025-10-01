@@ -1,0 +1,81 @@
+inputs_def:
+  - handle: gif_path
+    description: "Path to the input GIF file"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+    nullable: false
+
+  - handle: output_path
+    description: "Path to save the optimized GIF"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: false
+
+  - handle: optimize_level
+    description: "Optimization level (1=basic, 2=medium, 3=aggressive)"
+    json_schema:
+      type: integer
+      enum:
+        - 1
+        - 2
+        - 3
+    value: 2
+    nullable: false
+
+  - handle: max_colors
+    description: "Maximum colors in palette (2-256, lower = smaller file)"
+    json_schema:
+      type: integer
+    value: 256
+    nullable: false
+
+  - handle: reduce_fps
+    description: "Reduce frame rate by keeping every Nth frame (1=keep all)"
+    json_schema:
+      type: integer
+    value: 1
+    nullable: false
+
+outputs_def:
+  - handle: optimized_gif_path
+    description: "Path to the optimized GIF file"
+    json_schema:
+      type: string
+
+  - handle: original_size
+    description: "Original file size in bytes"
+    json_schema:
+      type: integer
+
+  - handle: optimized_size
+    description: "Optimized file size in bytes"
+    json_schema:
+      type: integer
+
+  - handle: compression_ratio
+    description: "Compression ratio (original/optimized)"
+    json_schema:
+      type: number
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "GIF Optimize"
+icon: ":carbon:shrink-screen:"
+description: "Optimize GIF file size by reducing colors and frames"
