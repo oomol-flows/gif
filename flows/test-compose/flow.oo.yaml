@@ -1,0 +1,18 @@
+title: test-compose
+description: Test GIF Compose with minimal required inputs
+
+nodes:
+  - node_id: compose#1
+    task: self::gif-compose
+    inputs_from:
+      - handle: image_paths
+        value:
+          - /tmp/test_frame_1.png
+          - /tmp/test_frame_2.png
+          - /tmp/test_frame_3.png
+      - handle: output_path
+        value: null
+      - handle: duration
+        value: null
+      - handle: loop
+        value: null

@@ -76,9 +76,16 @@ Perfect for:
 
 1. **Select your blocks:** Choose the processing blocks you need for your task
 2. **Connect them together:** Chain blocks in the order you want processing to occur
-3. **Configure settings:** Adjust parameters like size, speed, quality for each block
-4. **Run your workflow:** Process your GIF files automatically
-5. **Get results:** Receive your processed GIF files ready to use
+3. **Add your files:** Simply provide your GIF file - that's all you need to get started!
+4. **Customize (optional):** Advanced options are available if you want fine-grained control
+5. **Run your workflow:** Process your GIF files automatically
+6. **Get results:** Receive your processed GIF files ready to use
+
+### Simple and Smart
+Each block is designed to work right away with just the essential input - usually just your GIF file. All advanced settings have smart defaults and are neatly organized in collapsible sections, so you can:
+- **Start immediately** with minimal setup
+- **Get professional results** using recommended settings
+- **Access advanced features** only when you need them
 
 ## Common Workflows
 

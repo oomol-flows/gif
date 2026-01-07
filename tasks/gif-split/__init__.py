@@ -2,8 +2,8 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_dir: str
-    format: typing.Literal["png", "jpg", "bmp"]
+    output_dir: str | None
+    format: typing.Literal["png", "jpg", "bmp"] | None
 class Outputs(typing.TypedDict):
     frame_paths: typing.NotRequired[list[str]]
     frame_count: typing.NotRequired[int]
@@ -26,8 +26,10 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with frame_paths, frame_count, and duration
     """
     gif_path = params["gif_path"]
-    output_dir = params["output_dir"]
-    image_format = params["format"]
+    output_dir = params.get("output_dir") or context.session_dir
+    image_format = params.get("format")
+    if image_format is None:
+        image_format = "png"  # Default: PNG format
 
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)

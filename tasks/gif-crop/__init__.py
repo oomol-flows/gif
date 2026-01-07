@@ -2,11 +2,11 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_path: str
-    x: int
-    y: int
     width: int
     height: int
+    output_path: str | None
+    x: int | None
+    y: int | None
 class Outputs(typing.TypedDict):
     cropped_gif_path: typing.NotRequired[str]
     original_size: typing.NotRequired[list[int]]
@@ -15,6 +15,7 @@ class Outputs(typing.TypedDict):
 
 from oocana import Context
 from PIL import Image
+import os
 
 def main(params: Inputs, context: Context) -> Outputs:
     """
@@ -28,11 +29,15 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with cropped_gif_path, original_size, and crop_area
     """
     gif_path = params["gif_path"]
-    output_path = params["output_path"]
-    x = params["x"]
-    y = params["y"]
     width = params["width"]
     height = params["height"]
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "cropped.gif")
+    x = params.get("x")
+    if x is None:
+        x = 0  # Default: crop from top-left
+    y = params.get("y")
+    if y is None:
+        y = 0  # Default: crop from top-left
 
     # Calculate crop box (left, upper, right, lower)
     crop_box = (x, y, x + width, y + height)

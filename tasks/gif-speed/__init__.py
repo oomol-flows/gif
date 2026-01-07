@@ -2,9 +2,9 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_path: str
-    speed_multiplier: float
-    fps: float
+    output_path: str | None
+    speed_multiplier: float | None
+    fps: float | None
 class Outputs(typing.TypedDict):
     adjusted_gif_path: typing.NotRequired[str]
     original_duration: typing.NotRequired[float]
@@ -13,6 +13,7 @@ class Outputs(typing.TypedDict):
 
 from oocana import Context
 from PIL import Image
+import os
 
 def main(params: Inputs, context: Context) -> Outputs:
     """
@@ -26,9 +27,13 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with adjusted_gif_path, original_duration, and new_duration
     """
     gif_path = params["gif_path"]
-    output_path = params["output_path"]
-    speed_multiplier = params["speed_multiplier"]
-    target_fps = params["fps"]
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "speed_adjusted.gif")
+    speed_multiplier = params.get("speed_multiplier")
+    if speed_multiplier is None:
+        speed_multiplier = 1.0  # Default: no speed change
+    target_fps = params.get("fps")
+    if target_fps is None:
+        target_fps = 0  # Default: use speed_multiplier instead
 
     # Open GIF and extract frames
     with Image.open(gif_path) as gif:

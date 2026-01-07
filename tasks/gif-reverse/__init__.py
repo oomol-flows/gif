@@ -2,7 +2,7 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_path: str
+    output_path: str | None
 class Outputs(typing.TypedDict):
     reversed_gif_path: typing.NotRequired[str]
     frame_count: typing.NotRequired[int]
@@ -10,6 +10,7 @@ class Outputs(typing.TypedDict):
 
 from oocana import Context
 from PIL import Image
+import os
 
 def main(params: Inputs, context: Context) -> Outputs:
     """
@@ -23,7 +24,7 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with reversed_gif_path and frame_count
     """
     gif_path = params["gif_path"]
-    output_path = params["output_path"]
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "reversed.gif")
 
     # Open GIF and extract all frames
     with Image.open(gif_path) as gif:

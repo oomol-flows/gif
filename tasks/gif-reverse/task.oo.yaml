@@ -12,7 +12,7 @@ inputs_def:
     nullable: false
 
   - handle: output_path
-    description: "Path to save the reversed GIF"
+    description: "Path to save the reversed GIF (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: save
@@ -22,7 +22,8 @@ inputs_def:
             extensions:
               - gif
         excludeAll: true
-    nullable: false
+    nullable: true
+    value: null
 
 outputs_def:
   - handle: reversed_gif_path

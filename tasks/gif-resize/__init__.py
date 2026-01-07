@@ -2,11 +2,11 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_path: str
-    width: int
-    height: int
-    scale_percent: float
-    resample_method: typing.Literal["LANCZOS", "BILINEAR", "BICUBIC", "NEAREST"]
+    output_path: str | None
+    width: int | None
+    height: int | None
+    scale_percent: float | None
+    resample_method: typing.Literal["LANCZOS", "BILINEAR", "BICUBIC", "NEAREST"] | None
 class Outputs(typing.TypedDict):
     resized_gif_path: typing.NotRequired[str]
     original_size: typing.NotRequired[list[int]]
@@ -15,6 +15,7 @@ class Outputs(typing.TypedDict):
 
 from oocana import Context
 from PIL import Image
+import os
 
 def main(params: Inputs, context: Context) -> Outputs:
     """
@@ -28,11 +29,11 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with resized_gif_path, original_size, and new_size
     """
     gif_path = params["gif_path"]
-    output_path = params["output_path"]
-    target_width = params["width"]
-    target_height = params["height"]
-    scale_percent = params["scale_percent"]
-    resample_method = params["resample_method"]
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "resized.gif")
+    target_width = params.get("width") or 0
+    target_height = params.get("height") or 0
+    scale_percent = params.get("scale_percent") or 100  # Default: 100% (no scaling)
+    resample_method = params.get("resample_method") or "LANCZOS"  # Default: highest quality
 
     # Map resample method string to PIL constant
     resample_map = {

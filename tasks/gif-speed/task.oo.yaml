@@ -11,8 +11,10 @@ inputs_def:
               - gif
     nullable: false
 
+  - group: Speed Options
+    collapsed: true
   - handle: output_path
-    description: "Path to save the adjusted GIF"
+    description: "Path to save the adjusted GIF (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: save
@@ -22,21 +24,22 @@ inputs_def:
             extensions:
               - gif
         excludeAll: true
-    nullable: false
+    nullable: true
+    value: null
 
   - handle: speed_multiplier
     description: "Speed multiplier (2.0 = 2x faster, 0.5 = 2x slower)"
     json_schema:
       type: number
-    value: 1.0
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: fps
     description: "Target frames per second (overrides speed_multiplier if > 0)"
     json_schema:
       type: number
-    value: 0
-    nullable: false
+    value: null
+    nullable: true
 
 outputs_def:
   - handle: adjusted_gif_path

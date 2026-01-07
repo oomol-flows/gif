@@ -2,9 +2,9 @@
 import typing
 class Inputs(typing.TypedDict):
     image_paths: list[str]
-    output_path: str
-    duration: float
-    loop: int
+    output_path: str | None
+    duration: float | None
+    loop: int | None
 class Outputs(typing.TypedDict):
     gif_path: typing.NotRequired[str]
     frame_count: typing.NotRequired[int]
@@ -27,9 +27,11 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with gif_path, frame_count, and file_size
     """
     image_paths = params["image_paths"]
-    output_path = params["output_path"]
-    duration = int(params["duration"])
-    loop = params["loop"]
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "output.gif")
+    duration = int(params.get("duration") or 100)  # Default: 100ms per frame
+    loop = params.get("loop")
+    if loop is None:
+        loop = 0  # Default: infinite loop
 
     if not image_paths:
         raise ValueError("No images provided to compose GIF")

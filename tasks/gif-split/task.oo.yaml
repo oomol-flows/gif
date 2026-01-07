@@ -11,12 +11,15 @@ inputs_def:
               - gif
     nullable: false
 
+  - group: Output Options
+    collapsed: true
   - handle: output_dir
-    description: "Directory to save extracted frames"
+    description: "Directory to save extracted frames (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: dir
-    nullable: false
+    nullable: true
+    value: null
 
   - handle: format
     description: "Output image format"
@@ -26,8 +29,8 @@ inputs_def:
         - png
         - jpg
         - bmp
-    value: "png"
-    nullable: false
+    value: null
+    nullable: true
 
 outputs_def:
   - handle: frame_paths

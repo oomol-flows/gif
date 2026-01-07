@@ -11,8 +11,10 @@ inputs_def:
               - gif
     nullable: false
 
+  - group: Optimization Options
+    collapsed: true
   - handle: output_path
-    description: "Path to save the optimized GIF"
+    description: "Path to save the optimized GIF (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: save
@@ -22,7 +24,8 @@ inputs_def:
             extensions:
               - gif
         excludeAll: true
-    nullable: false
+    nullable: true
+    value: null
 
   - handle: optimize_level
     description: "Optimization level (1=basic, 2=medium, 3=aggressive)"
@@ -32,22 +35,22 @@ inputs_def:
         - 1
         - 2
         - 3
-    value: 2
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: max_colors
     description: "Maximum colors in palette (2-256, lower = smaller file)"
     json_schema:
       type: integer
-    value: 256
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: reduce_fps
     description: "Reduce frame rate by keeping every Nth frame (1=keep all)"
     json_schema:
       type: integer
-    value: 1
-    nullable: false
+    value: null
+    nullable: true
 
 outputs_def:
   - handle: optimized_gif_path

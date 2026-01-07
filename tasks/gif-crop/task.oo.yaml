@@ -11,33 +11,6 @@ inputs_def:
               - gif
     nullable: false
 
-  - handle: output_path
-    description: "Path to save the cropped GIF"
-    json_schema:
-      type: string
-      ui:widget: save
-      ui:options:
-        filters:
-          - name: GIF
-            extensions:
-              - gif
-        excludeAll: true
-    nullable: false
-
-  - handle: x
-    description: "X coordinate of the top-left corner"
-    json_schema:
-      type: integer
-    value: 0
-    nullable: false
-
-  - handle: y
-    description: "Y coordinate of the top-left corner"
-    json_schema:
-      type: integer
-    value: 0
-    nullable: false
-
   - handle: width
     description: "Width of the crop area"
     json_schema:
@@ -49,6 +22,36 @@ inputs_def:
     json_schema:
       type: integer
     nullable: false
+
+  - group: Advanced Options
+    collapsed: true
+  - handle: output_path
+    description: "Path to save the cropped GIF (defaults to session directory)"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: GIF
+            extensions:
+              - gif
+        excludeAll: true
+    nullable: true
+    value: null
+
+  - handle: x
+    description: "X coordinate of the top-left corner"
+    json_schema:
+      type: integer
+    value: null
+    nullable: true
+
+  - handle: y
+    description: "Y coordinate of the top-left corner"
+    json_schema:
+      type: integer
+    value: null
+    nullable: true
 
 outputs_def:
   - handle: cropped_gif_path

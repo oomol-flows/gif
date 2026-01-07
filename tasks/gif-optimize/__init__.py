@@ -2,10 +2,10 @@
 import typing
 class Inputs(typing.TypedDict):
     gif_path: str
-    output_path: str
-    optimize_level: typing.Literal[1, 2, 3]
-    max_colors: int
-    reduce_fps: int
+    output_path: str | None
+    optimize_level: typing.Literal[1, 2, 3] | None
+    max_colors: int | None
+    reduce_fps: int | None
 class Outputs(typing.TypedDict):
     optimized_gif_path: typing.NotRequired[str]
     original_size: typing.NotRequired[int]
@@ -29,10 +29,18 @@ def main(params: Inputs, context: Context) -> Outputs:
         Dictionary with optimized_gif_path, file sizes, and compression_ratio
     """
     gif_path = params["gif_path"]
-    output_path = params["output_path"]
-    optimize_level = params["optimize_level"]
-    max_colors = max(2, min(256, params["max_colors"]))
-    reduce_fps = max(1, params["reduce_fps"])
+    output_path = params.get("output_path") or os.path.join(context.session_dir, "optimized.gif")
+    optimize_level = params.get("optimize_level")
+    if optimize_level is None:
+        optimize_level = 2  # Default: medium optimization
+    max_colors = params.get("max_colors")
+    if max_colors is None:
+        max_colors = 256  # Default: no color reduction
+    max_colors = max(2, min(256, max_colors))
+    reduce_fps = params.get("reduce_fps")
+    if reduce_fps is None:
+        reduce_fps = 1  # Default: keep all frames
+    reduce_fps = max(1, reduce_fps)
 
     # Get original file size
     original_size = os.path.getsize(gif_path)

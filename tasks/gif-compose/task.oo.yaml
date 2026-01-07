@@ -5,10 +5,11 @@ inputs_def:
       type: array
       items:
         type: string
+        ui:widget: file
     nullable: false
 
   - handle: output_path
-    description: "Path to save the output GIF file"
+    description: "Path to save the output GIF file (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: save
@@ -18,21 +19,24 @@ inputs_def:
             extensions:
               - gif
         excludeAll: true
-    nullable: false
+    value: null
+    nullable: true
 
+  - group: Advanced Options
+    collapsed: true
   - handle: duration
     description: "Duration per frame in milliseconds"
     json_schema:
       type: number
-    value: 100
-    nullable: false
+    value:
+    nullable: true
 
   - handle: loop
     description: "Number of loops (0 for infinite)"
     json_schema:
       type: integer
-    value: 0
-    nullable: false
+    value:
+    nullable: true
 
 outputs_def:
   - handle: gif_path

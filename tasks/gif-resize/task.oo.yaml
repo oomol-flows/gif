@@ -11,8 +11,10 @@ inputs_def:
               - gif
     nullable: false
 
+  - group: Resize Options
+    collapsed: true
   - handle: output_path
-    description: "Path to save the resized GIF"
+    description: "Path to save the resized GIF (defaults to session directory)"
     json_schema:
       type: string
       ui:widget: save
@@ -22,28 +24,29 @@ inputs_def:
             extensions:
               - gif
         excludeAll: true
-    nullable: false
+    nullable: true
+    value: null
 
   - handle: width
     description: "Target width in pixels (0 to maintain aspect ratio)"
     json_schema:
       type: integer
-    value: 0
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: height
     description: "Target height in pixels (0 to maintain aspect ratio)"
     json_schema:
       type: integer
-    value: 0
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: scale_percent
     description: "Scale percentage (100 = original, 50 = half size, 200 = double)"
     json_schema:
       type: number
-    value: 100
-    nullable: false
+    value: null
+    nullable: true
 
   - handle: resample_method
     description: "Resampling method for quality"
@@ -54,8 +57,8 @@ inputs_def:
         - BILINEAR
         - BICUBIC
         - NEAREST
-    value: "LANCZOS"
-    nullable: false
+    value: null
+    nullable: true
 
 outputs_def:
   - handle: resized_gif_path
